@@ -2,7 +2,7 @@ package dev.zambone.screenmatch;
 
 import dev.zambone.screenmatch.model.TvShowModel;
 import dev.zambone.screenmatch.service.RequestApi;
-import dev.zambone.screenmatch.service.TvShowDTO;
+import dev.zambone.screenmatch.service.JsonDataConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ public class ScreenmatchApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		var requestApi = new RequestApi();
 		var json = requestApi.getData("http://www.omdbapi.com/?t=gilmore+girls&apikey=b75c3faa");
-		TvShowDTO converter = new TvShowDTO();
+		JsonDataConverter converter = new JsonDataConverter();
 		TvShowModel data = converter.getData(json, TvShowModel.class);
 		System.out.println(data);
 	}

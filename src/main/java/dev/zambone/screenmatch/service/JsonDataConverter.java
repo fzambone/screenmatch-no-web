@@ -3,7 +3,7 @@ package dev.zambone.screenmatch.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TvShowDTO implements IConvertData {
+public class JsonDataConverter implements DataConverter {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
