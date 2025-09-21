@@ -1,8 +1,8 @@
 package dev.zambone.screenmatch;
 
-import dev.zambone.screenmatch.model.TvShowModel;
-import dev.zambone.screenmatch.service.RequestApi;
-import dev.zambone.screenmatch.service.JsonDataConverter;
+import dev.zambone.screenmatch.main.Main;
+import dev.zambone.screenmatch.repository.TvShowRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,16 +10,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
 
+	@Autowired
+	private TvShowRepository tvShowRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ScreenmatchApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		var requestApi = new RequestApi();
-		var json = requestApi.getData("http://www.omdbapi.com/?t=gilmore+girls&apikey=b75c3faa");
-		JsonDataConverter converter = new JsonDataConverter();
-		TvShowModel data = converter.getData(json, TvShowModel.class);
-		System.out.println(data);
+		Main main = new Main(tvShowRepository);
+		main.showMenu();
 	}
 }
