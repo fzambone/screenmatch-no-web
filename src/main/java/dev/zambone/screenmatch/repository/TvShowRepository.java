@@ -28,4 +28,14 @@ public interface TvShowRepository extends JpaRepository<TvShow, Long> {
 
     @Query("SELECT e FROM TvShow t JOIN t.episodes e WHERE t = :foundTvShow ORDER BY e.rating DESC LIMIT 5")
     List<Episode> topEpisodesByTvShow(TvShow foundTvShow);
+
+
+    @Query("SELECT t FROM TvShow t " +
+            "JOIN t.episodes e " +
+            "GROUP BY t " +
+            "ORDER BY MAX(e.releaseDate) DESC LIMIT 5")
+    List<TvShow> latestReleases();
+
+    @Query("SELECT e FROM TvShow t JOIN t.episodes e WHERE t.id = :id AND e.season = :season")
+    List<Episode> getEpisodeBySeason(Long id, Integer season);
 }
